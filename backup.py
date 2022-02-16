@@ -3,7 +3,6 @@
 import boto3, botocore
 import sys
 import os
-from botocore.client import ClientError
 
 s3 = boto3.resource('s3')
 s3_client = boto3.client('s3')
@@ -36,6 +35,8 @@ def backupDirectory(local_directory, bucket_name, bucket_directory):
     # if it cannot be created then we are using an existing bucket that we own
     except:
         print("Using existing bucket: ", bucket_name)
+
+    local_directory = local_directory.replace('\\', '/')
 
     # retreive the root file name of the directory to be backed up
     split_directory = local_directory.split('/')
